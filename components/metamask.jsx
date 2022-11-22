@@ -3,58 +3,7 @@ import { signMessage } from "../utils/sign";
 import Link from "next/link";
 import Metamask from "./meta";
 
-const MetamaskCon = () => {
-  const [haveMetamask, sethaveMetamask] = useState(true);
-
-  const [client, setclient] = useState({
-    isConnected: false,
-  });
-
-  const checkConnection = async () => {
-    const { ethereum } = window;
-    if (ethereum) {
-      sethaveMetamask(true);
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-      if (accounts.length > 0) {
-        setclient({
-          isConnected: true,
-          address: accounts[0],
-        });
-      } else {
-        setclient({
-          isConnected: false,
-        });
-      }
-    } else {
-      sethaveMetamask(false);
-    }
-  };
-
-  const connectWeb3 = async () => {
-    try {
-      const { ethereum } = window;
-
-      if (!ethereum) {
-        console.log("Metamask not detected");
-        return;
-      }
-
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-
-      setclient({
-        isConnected: true,
-        address: accounts[0],
-      });
-    } catch (error) {
-      console.log("Error connecting to metamask", error);
-    }
-  };
-
-  useEffect(() => {
-    checkConnection();
-  }, []);
+const MetamaskCon = ({client, connect}) => {
 
   return (
     <>
@@ -62,7 +11,7 @@ const MetamaskCon = () => {
       <nav className="fren-nav d-flex">
         <div className="d-flex" style={{ marginLeft: "auto" }}>
           <div>
-            <button className="btn connect-btn" onClick={connectWeb3}>
+            <button className="btn connect-btn" onClick={connect}>
               {client.isConnected ? (
                 <>
                   {client.address.slice(0, 4)}...
@@ -76,7 +25,6 @@ const MetamaskCon = () => {
         </div>
       </nav>
       {/* Navbar end */}
-  
     </>
   );
 };
