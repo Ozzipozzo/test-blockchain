@@ -5,7 +5,8 @@ import logoo from "../public/logoo.png";
 import { TiSocialTwitter } from "react-icons/Ti";
 import { FaDiscord } from "react-icons/Fa";
 import MetamaskCon from "./metamask";
-import { ImSun, ImIcoMoon } from "react-icons/im";
+import { ImSun } from "react-icons/im";
+import { FaRegMoon } from "react-icons/fa";
 import { useTheme } from "next-themes";
 
 export const Navbar = ({ client, connect }) => {
@@ -27,7 +28,7 @@ export const Navbar = ({ client, connect }) => {
       );
     } else {
       return (
-        <ImIcoMoon
+        <FaRegMoon
           className="w-10 h-10 text-gray-900 "
           role="button"
           onClick={() => setTheme("dark")}
