@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ethers } from "ethers";
+import { useRouter } from "next/router";
+import { FormattedMessage, useIntl } from "react-intl";
+
 
 export const SecondBlock = ({ client, txs }) => {
-  console.log(txs);
+    const { locales } = useRouter();
+
 
   return (
     <div
@@ -12,7 +15,10 @@ export const SecondBlock = ({ client, txs }) => {
       <div className="sm:flex sm:justify-center sm:mt-16">
         <div className="skew-y-3 flex-col items-center pt-4  sm:pt-20 sm:w-[40%] sm:h-fit flex ">
           <h1 className="text-[46px] text-center font-black w-full leading-10 sm:mt-[4rem] text-[#fa7268] sm:w-[70%]">
-            10 last transactions
+            <FormattedMessage
+              id="secondblock"
+              values={{ b: (chunks) => <b>{chunks}</b> }}
+            />
           </h1>
           <div className="sm:mt-4 flex-col">
             {txs &&

@@ -77,6 +77,8 @@ export default function Home() {
         <title>Heavy Heads</title>
         <meta name="description" content="HeavyHeads" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="alternate" href="http://localhost:3000/" hrefLang="en" />
+        <link rel="alternate" href="http://localhost:3000/fr" hrefLang="fr" />
       </Head>
       <div>
         <Navbar client={client} connect={connectWeb3} />
