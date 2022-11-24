@@ -12,7 +12,10 @@ import { ethers } from "ethers";
 export default function Home() {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [transactions, setTransactions] = useState(null);
-
+  const [balance, setBalance] = useState();
+  const [currentAccount, setCurrentAccount] = useState()
+  const [chainId, setChainId] = useState()
+  const [chainname, setChainName] = useState()
   const [client, setclient] = useState({
     isConnected: false,
   });
@@ -49,12 +52,25 @@ export default function Home() {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
+      setCurrentAccount(accounts);
 
       // get txs
       let provider = new ethers.providers.EtherscanProvider();
       let history = await provider.getHistory(accounts[0]);
-      console.log(history);
       setTransactions(history);
+      let txxx = await provider.getBalance(accounts[0]).then((balancee) => {
+        setBalance(ethers.utils.formatEther(balancee))
+      });
+      
+      // const provider2 = new ethers.providers.Web3Provider(ethereum);
+      // provider.getBalance(currentAccount).then((result) => {
+      //   console.log(result)
+      //   // setBalance(ethers.utils.formatEther(result));
+      // });
+      
+      
+      
+      console.log(txxx);
 
       setclient({
         isConnected: true,
@@ -64,8 +80,6 @@ export default function Home() {
       console.log("Error connecting to metamask", error);
     }
   };
-
-
 
   useEffect(() => {
     checkConnection();
@@ -83,7 +97,7 @@ export default function Home() {
       <div>
         <Navbar client={client} connect={connectWeb3} />
         <FirstBlock />
-        <SecondBlock client={client} txs={transactions} />
+        <SecondBlock client={client} txs={transactions} balance={balance} />
         <ThirdBlock />
         <FourthBlock />
         <FifthBlock />

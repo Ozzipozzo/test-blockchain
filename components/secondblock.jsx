@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { FormattedMessage, useIntl } from "react-intl";
 
+export const SecondBlock = ({ client, txs, balance }) => {
+  const { locales } = useRouter();
 
-export const SecondBlock = ({ client, txs }) => {
-    const { locales } = useRouter();
-
+  useEffect(() => {}, [balance]);
+  
 
   return (
     <div
@@ -20,6 +21,7 @@ export const SecondBlock = ({ client, txs }) => {
               values={{ b: (chunks) => <b>{chunks}</b> }}
             />
           </h1>
+          <div>Balance : {balance}</div>
           <div className="sm:mt-4 flex-col">
             {txs &&
               txs.map((item, index) => (
